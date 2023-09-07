@@ -1,3 +1,11 @@
+* {
+  --clr-1: #F3D170;
+  --clr-2: #A1C2E1;
+  --clr-3: #EDB5A8;
+  --clr-4: #00ACBA;
+  --clr-5: #F6D48A;
+}
+
 html {
   font-size: 18px;
 }
@@ -10,5 +18,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
+}
+
+#root {
+  width: 80vw;
+  margin: 0 auto;
 }
 
