@@ -4,6 +4,10 @@
   --clr-3: #EDB5A8;
   --clr-4: #00ACBA;
   --clr-5: #F6D48A;
+  --clr-6: #ECAEBD;
+
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -20,8 +24,5 @@ body {
   font-size: 1rem;
 }
 
-#root {
-  width: 80vw;
-  margin: 0 auto;
-}
+
 

@@ -1,0 +1,18 @@
+#footer {
+    height: 10rem;
+    background: var(--clr-6);
+    display: flex;
+    justify-content: center;
+}
+
+.social-network {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-network img {
+    width: 40px;
+    height: 40px;
+    padding: 0.1rem;
+}
