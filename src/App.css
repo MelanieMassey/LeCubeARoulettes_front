@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.first-section {
+  height: 100vh;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
+  --clr-1: #F3D170;
+  --clr-2: #A1C2E1;
+  --clr-3: #EDB5A8;
+  --clr-4: #00ACBA;
+  --clr-5: #F6D48A;
+}
+
+.first-section h1 {
+  margin: 0;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+#logo-container {
+  position: relative;
+  border-radius: 0.5rem;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+#logo-container::before,
+#logo-container::after {
+  content: "";
+  position: absolute;
+  inset: -.5rem;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--clr-1),
+    var(--clr-2),
+    var(--clr-3),
+    var(--clr-4),
+    var(--clr-5),
+    var(--clr-4),
+    var(--clr-3),
+    var(--clr-2),
+    var(--clr-1)
+  );
+  border-radius: inherit;
+  animation: rotation 20s linear infinite;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#logo-container::after{
+  filter: blur(1.5rem);
+}
+
+@keyframes rotation {
+  0% {--gradient-angle: 0deg;}
+  100% {--gradient-angle:360deg;}
+}
+
+.logo {
+  width: 40vw;
+  
+}
+
+.second-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
