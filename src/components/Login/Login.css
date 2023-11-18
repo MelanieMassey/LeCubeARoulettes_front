@@ -1,0 +1,42 @@
+.login-main {
+    margin: 0 auto;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-main>form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.loginButton {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: var(--clr-4);
+    background-color: var(--clr-4);
+    color: #fff;
+}
+
+.input-wrapper {
+display: flex;
+flex-direction: column;
+text-align: left;
+margin-bottom: 1rem;
+}
+
+.input-wrapper label {
+font-weight: bold;
+}
+
+.input-wrapper input {
+padding: 5px;
+font-size: 1.2rem;
+}

@@ -4,7 +4,7 @@ header {
     justify-content: space-between;
     padding: 0 3rem;
     position: fixed;
-    top: -250px;
+    top: 0px;
     left: 0;
     right: 0;
     transition: top 0.6s; /* Transition effect when sliding down (and up) */

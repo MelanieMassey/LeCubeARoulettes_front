@@ -1,0 +1,118 @@
+.main {
+    width: 80vw;
+    margin: 0 auto;
+  }
+  
+  .first-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* --clr-1: #F3D170;
+    --clr-2: #A1C2E1;
+    --clr-3: #EDB5A8;
+    --clr-4: #00ACBA;
+    --clr-5: #F6D48A; */
+  }
+  
+  .first-section h1 {
+    margin: 0;
+  }
+  
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  
+  #logo-container {
+    position: relative;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #logo-container::before,
+  #logo-container::after {
+    content: "";
+    position: absolute;
+    inset: -.5rem;
+    z-index: -1;
+    background: conic-gradient(
+      from var(--gradient-angle),
+      var(--clr-1),
+      var(--clr-2),
+      var(--clr-3),
+      var(--clr-4),
+      var(--clr-5),
+      var(--clr-4),
+      var(--clr-3),
+      var(--clr-2),
+      var(--clr-1)
+    );
+    border-radius: inherit;
+    animation: rotation 20s linear infinite;
+  }
+  
+  #logo-container::after{
+    filter: blur(1.5rem);
+  }
+  
+  @keyframes rotation {
+    0% {--gradient-angle: 0deg;}
+    100% {--gradient-angle:360deg;}
+  }
+  
+  .logo {
+    width: 40vw;
+    
+  }
+  
+  .second-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 3rem;
+  }
+  
+  .index-img {
+    width: 20vw;
+    border-radius: 50%;
+  }
+  
+  .welcome-message {
+    padding: 1rem;
+    border: 0.25rem solid var(--clr-1);
+    position: relative;
+  }
+  
+  .welcome-message::before,
+  .welcome-message::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #fff;
+  }
+  
+  .welcome-message::before {
+    top: -0.3em;
+    bottom: -0.3em;
+    left: 1em;
+    right: 1em;
+  }
+  
+  .welcome-message::after {
+    left: -0.3em;
+    right: -0.3em;
+    top: 1em;
+    bottom: 1em;
+  }
+  
+  .welcome-message p {
+    position: relative;
+    z-index: 1;
+  }
