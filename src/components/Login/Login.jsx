@@ -3,7 +3,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import './Login.css';
 import AuthContext from "../../context/AuthProvider";
-import axios from '../../api/apiCalls';
+import axios, { getToken } from '../../api/apiCalls';
 
 const LOGIN_URL = '/api/auth';
 
@@ -31,22 +31,13 @@ export default function Login(){
         e.preventDefault();
         
         try {
-            const response = await axios.post(
-                LOGIN_URL,
-                JSON.stringify({user,pwd}),
-                {
-                    headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({user,pwd, roles, accessToken});
-            setUser('');
-            setPwd('');
-            setSuccess(true);
+            const token = await getToken({user, pwd});
+            console.log(token);
+            // const roles = response?.data?.roles;
+            // setAuth({user,pwd, roles, accessToken});
+            // setUser('');
+            // setPwd('');
+            // setSuccess(true);
         } catch(err) {
             if(!err?.response){
                 setErrMsg('No server response');
