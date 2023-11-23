@@ -3,17 +3,16 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import './Login.css';
 import AuthContext from "../../context/AuthProvider";
-import axios, { getToken } from '../../api/apiCalls';
+import { getToken } from '../../api/apiCalls';
 
-const LOGIN_URL = '/api/auth';
 
 export default function Login(){
     const {setAuth} = useContext(AuthContext);
     const userRef = useRef(); // set focus on that 1st input when componentloads
     const errRef = useRef(); // set focus on errors if it accurs
 
-    const [user, setUser] = useState(''); 
-    const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState(''); 
+    const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState(''); 
     const [success, setSuccess] = useState(false); // remplacer par un navigate
 
@@ -25,13 +24,13 @@ export default function Login(){
     // empty things out when the user makes a change
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, password])
 
     async function handleSubmit(e){
         e.preventDefault();
         
         try {
-            const token = await getToken({user, pwd});
+            const token = await getToken({email, password});
             console.log(token);
             // const roles = response?.data?.roles;
             // setAuth({user,pwd, roles, accessToken});
@@ -74,8 +73,8 @@ export default function Login(){
                             id="email"
                             ref={userRef}
                             autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             required
                         />
 
@@ -83,8 +82,8 @@ export default function Login(){
                         <input
                             type="password"
                             id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             required
                         />
                         <button>Se connecter</button>
