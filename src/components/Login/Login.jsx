@@ -1,103 +1,90 @@
 import React from "react";
 import { useRef, useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Login.css';
-import AuthContext from "../../context/AuthProvider";
+import { UserContext } from "../../context/UserContext";
+import { NewUserContext } from "../../context/NewUserContext";
 import { getToken } from '../../api/apiCalls';
 
 
 export default function Login(){
-    const {setAuth} = useContext(AuthContext);
-    const userRef = useRef(); // set focus on that 1st input when componentloads
-    const errRef = useRef(); // set focus on errors if it accurs
+    const { user, setUser } = useContext(UserContext);
+    
+    const navigate = useNavigate();
+    // const userRef = useRef(); // set focus on that 1st input when componentloads
+    // const errRef = useRef(); // set focus on errors if it accurs
 
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState(''); 
-    const [success, setSuccess] = useState(false); // remplacer par un navigate
+    // const [errMsg, setErrMsg] = useState(''); 
 
-    // set focus on the user input when component first loads
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
 
-    // empty things out when the user makes a change
-    useEffect(() => {
-        setErrMsg('');
-    }, [email, password])
 
-    async function handleSubmit(e){
+    async function handleSubmitLogin(e){
         e.preventDefault();
-        
-        try {
-            const token = await getToken({email, password});
-            console.log(token);
-            // const roles = response?.data?.roles;
-            // setAuth({user,pwd, roles, accessToken});
-            // setUser('');
-            // setPwd('');
-            // setSuccess(true);
-        } catch(err) {
-            if(!err?.response){
-                setErrMsg('No server response');
-            } else if(err.response?.status === 400){
-                setErrMsg('Missing username or password');
-            } else if(err.response?.status === 401){
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login failed')
-            }
-            errRef.current.focus();
-        }
+
+        const response = await getToken({email, password});
+        console.log(response);
+        setUser(response.user);
+        setEmail('');
+        setPassword('');
+        navigate("/dashboard");
         
     }
 
     return(
-        <>
-            {success ? (
-                <section className="login-main">
-                    <h2>Bienvenue dans votre espace personnel !</h2>
-                    <br />
-                    <p>
-                        <a href="#">Retour à l'accueil</a>
-                    </p>
-                </section>
-            ) : (
-                <section className="login-main">
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h2>Déjà enregistré ?</h2>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="email">E-mail</label>
-                        <input
-                            type="text"
-                            id="email"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            required
-                        />
+        <section className="login-main">
+            {/* <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> */}
+            <div className="login-login">
+                <h2>J'ai déjà un compte</h2>
+                <form onSubmit={handleSubmitLogin}>
+                    <label htmlFor="email">E-mail</label>
+                    <input
+                        type="text"
+                        id="email"
+                        // ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        required
+                    />
 
-                        <label htmlFor="password">Mot de passe</label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                            required
-                        />
-                        <button>Se connecter</button>
-                    </form>
-                    <p>
-                        Besoin d'un compte ?<br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Créer un compte</a>
-                        </span>
-                    </p>
-                </section>
-            )}
-        </>
+                    <label htmlFor="password">Mot de passe</label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        required
+                    />
+                    <button className="loginButton">Me connecter</button>
+                </form>
+            </div>
+            {/* <div className="login-createAccount">
+                <button>Je créé un compte</button>
+                <form>
+                    <label htmlFor="firstName">Prénom</label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        autoComplete="off"
+                        onChange={(e) => setNewUser.firstName(e.target.value)}
+                        value={newUser.firstName}
+                        required
+                    />
+
+                    <label htmlFor="lastName">Nom</label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        onChange={(e) => setNewUser.lastName(e.target.value)}
+                        value={newUser.lastName}
+                        required
+                    />
+                    <button>Créer</button>
+                </form>
+            </div> */}
+        </section>
         
     )
 }

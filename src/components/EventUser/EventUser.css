@@ -1,0 +1,38 @@
+.eventUser-main{
+    border: 1px solid var(--clr-1);
+    /* border-radius: 0.5rem; */
+    padding: 1rem;
+    border: 0.25rem solid var(--clr-1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+  
+.eventUser-main::before,
+.eventUser-main::after {
+content: "";
+display: block;
+position: absolute;
+background-color: #fff;
+}
+
+.eventUser-main::before {
+top: -0.3em;
+bottom: -0.3em;
+left: 1em;
+right: 1em;
+}
+
+.eventUser-main::after {
+left: -0.3em;
+right: -0.3em;
+top: 1em;
+bottom: 1em;
+}
+
+.eventUser-main>h4,
+.eventUser-main>p {
+position: relative;
+z-index: 1;
+}

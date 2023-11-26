@@ -1,13 +1,22 @@
 import './App.css';
 import NavBar from './components/NabBar/NavBar';
 import Footer from './components/Footer/Footer';
+import { useState, useMemo } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
+import { NewUserContext } from './context/NewUserContext';
 import Home from './components/Home/Home';
-import Ateliers from './components/Ateliers/Ateliers';
 import Login from './components/Login/Login';
+import Dashboard from './components/Dashboard/Dashboard';
 
 
 function App() {
+
+  const [user, setUser] = useState();
+  const [newUser, setNewUser] = useState();
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const value2 = useMemo(() => ({ newUser, setNewUser }), [newUser, setNewUser]);
 
   // window.onscroll = function() {scrollFunction()};
 
@@ -24,11 +33,17 @@ function App() {
   return (
     <>
       <NavBar/>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/ateliers' element={<Ateliers/>}/>
-        <Route path='/login' element={<Login/>}/>
-      </Routes>
+      <UserContext.Provider value={value}>
+      <NewUserContext.Provider value={value2}>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          
+          <Route path='/login' element={<Login/>}/>
+          
+          <Route path='/dashboard' element={<Dashboard/>}/>
+        </Routes>
+      </NewUserContext.Provider>
+      </UserContext.Provider>
       <Footer/>
     </>
   );

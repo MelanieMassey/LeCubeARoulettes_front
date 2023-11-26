@@ -27,15 +27,25 @@ export function getToken(loginDetails) {
     // })
 }
 
-export function getUserInfo(token) {
-    return axios.post(apiURL+"/user",{
-        // Data : pas encore de données
-    },{
-        headers:{
-            Authorization:`Bearer ${token}`
-        }
-    })
-    .then(response=>{
-        return response.data.body
-    })
+// export function getUserInfo(token) {
+//     return axios.post(apiURL+"/user",{
+//         // Data : pas encore de données
+//     },{
+//         headers:{
+//             Authorization:`Bearer ${token}`
+//         }
+//     })
+//     .then(response=>{
+//         return response.data.body
+//     })
+// }
+
+export function getUserEvents(id){
+    const requestOptions = {
+        method : "GET",
+        headers: { "Content-Type": "application/json" }
+        
+    };
+    return fetch(`${apiURL}/dashboard/user/${id}/events`, requestOptions)
+            .then(response => response.json())
 }

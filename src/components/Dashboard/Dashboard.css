@@ -1,0 +1,19 @@
+h2, h3 {
+    text-align: center;
+}
+
+.dashboard-main {
+    margin: 0 auto;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-user-events-content {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2rem;
+}
