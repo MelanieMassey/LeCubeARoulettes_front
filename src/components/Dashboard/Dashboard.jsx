@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     const getUserEvents = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/dashboard/user/${userId}/events`, {
+            const response = await axios.get(`http://34.163.89.215:8081/api/dashboard/user/${userId}/events`, {
                 // Data : pas encore de données
                 },{
                     headers: { "Content-Type": "application/json" }

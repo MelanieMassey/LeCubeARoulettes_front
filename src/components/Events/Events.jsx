@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Event from "../Event/Event";
 import './Events.css';
@@ -8,21 +7,6 @@ export default function Events() {
 
     const [allEvents, setAllEvents] = useState();
 
-    // const { data } = useQuery(
-    //     {
-    //         queryKey: ['events'],
-    //         queryFn: ()=>{
-    //             return axios.get("http://localhost:8081/api/events")
-    //                 .then((res) => res.data)
-    //                 .catch(function (error) {
-    //                     console.log(error);
-    //                 })
-    //         }
-    //     }
-    // );
-
-    // console.log(data)
-
     useEffect(() => {
         getAllEvents();
         console.log(allEvents);
@@ -30,7 +14,7 @@ export default function Events() {
 
     const getAllEvents = async () => {
         try {
-            const response = await axios.get("http://localhost:8081/api/events")
+            const response = await axios.get("http://34.163.89.215:8081/api/events")
             
             console.log(JSON.stringify(response?.data));
             setAllEvents(response.data)

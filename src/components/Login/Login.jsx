@@ -24,8 +24,6 @@ export default function Login(){
         setErrMsg('');
     }, [email, password])
 
-
-
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
         
@@ -44,15 +42,13 @@ export default function Login(){
 
         if(email && password){
             try {
-                const response = await axios.post("http://localhost:8081/api/auth/login",
+                const response = await axios.post("http://34.163.89.215:8081/api/auth/login",
                     JSON.stringify({email, password}),
                     {
                         headers: { 'Content-Type': 'application/json' }
                     }
                 );
-                console.log(JSON.stringify(response?.data));
                 setUser(response.data)
-                console.log("USER = "+JSON.stringify(user))
                 setEmail('');
                 setPassword('');
                 navigate("/dashboard");

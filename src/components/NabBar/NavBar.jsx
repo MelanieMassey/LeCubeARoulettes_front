@@ -18,8 +18,6 @@ export default function NavBar(){
     }
   },[]);
 
-  
-
   function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       document.getElementById("header").style.top = "0";
@@ -36,10 +34,9 @@ export default function NavBar(){
 
   return(
       <header id="header">
-          <a href="" className="header-logo">
+          <Link to={"/"} className="header-logo">
               <img className='logo-small' src={logoSmall} alt='Logo de la boutique le cube à roulettes'/>
-          </a>
-          
+          </Link>
           <nav>
               <Link to={"/"} className="navLink-home">Accueil</Link>
               <Link to={"/events"} className="navLink-events">Les ateliers</Link>
