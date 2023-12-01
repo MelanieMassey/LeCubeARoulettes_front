@@ -28,24 +28,39 @@ export default function Login(){
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        console.log(email, password);
-
-        try {
-            const response = await axios.post("http://localhost:8081/api/auth/login",
-                JSON.stringify({email, password}),
-                {
-                    headers: { 'Content-Type': 'application/json' }
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            setUser(response.data)
-            console.log("USER = "+JSON.stringify(user))
-            setEmail('');
-            setPassword('');
-            navigate("/dashboard");
-        } catch (err) {
-            console.log(err.message)
+        
+        const emailElement = document.getElementById("input-error-email");
+        if(!email) {
+            emailElement.style.display = "block";
+        } else {
+            emailElement.style.display = "none";
         }
+        const passwordElement = document.getElementById("input-error-password");
+        if(!password) {
+            passwordElement.style.display = "block";
+        } else {
+            passwordElement.style.display = "none";
+        }
+
+        if(email && password){
+            try {
+                const response = await axios.post("http://localhost:8081/api/auth/login",
+                    JSON.stringify({email, password}),
+                    {
+                        headers: { 'Content-Type': 'application/json' }
+                    }
+                );
+                console.log(JSON.stringify(response?.data));
+                setUser(response.data)
+                console.log("USER = "+JSON.stringify(user))
+                setEmail('');
+                setPassword('');
+                navigate("/dashboard");
+            } catch (err) {
+                console.log(err.message)
+            }
+        }
+        
 
         
     }
@@ -64,8 +79,9 @@ export default function Login(){
                         autoComplete="off"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
-                        required
+                        // required
                     />
+                    <p id="input-error-email" className="input-error">Veuillez saisir votre email.</p>
 
                     <label htmlFor="password">Mot de passe</label>
                     <input
@@ -73,8 +89,10 @@ export default function Login(){
                         id="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
-                        required
+                        // required
                     />
+                    <p id="input-error-password" className="input-error">Veuillez saisir votre mot de passe.</p>
+
                     <button className="loginButton">Me connecter</button>
                 </form>
             </div>

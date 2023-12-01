@@ -51,13 +51,13 @@
 }
 
 .login-login>form label {
+    margin-top: 1rem;
     margin-bottom: 0.3rem;
 }
 
 .login-login>form input {
     padding: 0.5rem;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
     border: 1px solid var(--clr-2);
 }
 
@@ -78,18 +78,9 @@
 	outline: inherit;
 }
 
-.input-wrapper {
-display: flex;
-flex-direction: column;
-text-align: left;
-margin-bottom: 1rem;
-}
 
-.input-wrapper label {
-font-weight: bold;
-}
-
-.input-wrapper input {
-padding: 5px;
-font-size: 1.2rem;
+.input-error {
+    display: none;
+    color: red;
+    font-size: 0.8rem;
 }
