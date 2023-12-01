@@ -1,52 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import "./Dashboard.css"
-import { getUserEvents } from "../../api/apiCalls";
-import EventUser from '../EventUser/EventUser.jsx';
 import axios from "axios";
+import "./Dashboard.css"
+import EventUser from '../EventUser/EventUser.jsx';
 
 
 export default function Dashboard() {
-
     const { user } = useContext(UserContext);
     const [userEvents, setUserEvents] = useState('');
-    const apiURL = "http://localhost:8081/api"
+    
+    console.log("USER => "+JSON.stringify(user))
+    let userId = user.user.id;
+    console.log(userId)
 
-    console.log("*** USER *** "+JSON.stringify(user));
-    let userId = user.id;
-    console.log("user id = "+userId);    
-
-    useEffect(()=> {
-        initData();
+    useEffect(() => {
+        getUserEvents();
         console.log(userEvents);
-    },[])
+    }, [])
 
-    const initData= async () => {
-        await axios.get(`${apiURL}/dashboard/user/${userId}/events`, {
-            // Data : pas encore de données
-            },{
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(response=>{
-                console.log(response.data)
-                setUserEvents(response.data);
-        
-            })
-            .catch((error)=> {
-                console.log(error)
-            })
+    const getUserEvents = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8081/api/dashboard/user/${userId}/events`, {
+                // Data : pas encore de données
+                },{
+                    headers: { "Content-Type": "application/json" }
+                })
+            
+            console.log(JSON.stringify(response?.data));
+            setUserEvents(response.data)
+            
+        } catch (err) {
+            console.log(err.message)
+        }
     }
+    
 
     return(
         <section className="dashboard-main">
-            <h2>Bonjour {user.firstName}</h2>
+            <h2>Bonjour {user.user.firstName}</h2>
 
             <div className="dashboard-user">
                 <div className="dashboard-user-events">
                     <h3>Vos réservations d'ateliers</h3>
                     <div className="dashboard-user-events-content">
-                        {userEvents > 0 ? userEvents.map(event => {
+                        {userEvents ? userEvents.map(event => {
                             console.log(event.name)
                             return <EventUser value={event}/>
                         }) :  <p>No event</p>}

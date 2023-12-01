@@ -1,0 +1,56 @@
+.event-main{
+    border: 1px solid var(--clr-1);
+    /* border-radius: 0.5rem; */
+    padding: 1rem;
+    border: 0.25rem solid var(--clr-1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+  
+.event-main::before,
+.event-main::after {
+content: "";
+display: block;
+position: absolute;
+background-color: #fff;
+}
+
+.event-main::before {
+top: -0.3em;
+bottom: -0.3em;
+left: 1em;
+right: 1em;
+}
+
+.event-main::after {
+left: -0.3em;
+right: -0.3em;
+top: 1em;
+bottom: 1em;
+}
+
+.event-main>h4,
+.event-main>p,
+button {
+position: relative;
+z-index: 1;
+}
+
+button {
+    display: block;
+    width: max-content;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: none;
+    background-color: var(--clr-4);
+    color: #fff;
+	border: none;
+	font-family: inherit;
+	cursor: pointer;
+	outline: inherit;
+}

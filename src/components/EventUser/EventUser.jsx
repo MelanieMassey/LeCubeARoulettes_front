@@ -1,31 +1,15 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import './EventUser.css';
 
-export default function EventUser(props) {
+export default function Ateliers(props) {
 
-    const { data } = useQuery(
-        {
-            queryKey: ['events'],
-            queryFn: ()=>{
-                return axios.get("http://localhost:8081/api/events")
-                        .then((res) => res.data)
-                        .catch(function (error) {
-                            console.log(error);
-                        })
-            }
-        }
-    ); // array constains a unique key that represents the useQuery hook
-
-    console.log(data[0].name)
-
-
+    console.log("PROPS = "+ JSON.stringify(props))
 
     return(
         <div className="eventUser-main">
-            <h4>{data[0].name}</h4>
-            {/* <p>{props.value.eventDate}</p> */}
+            <h4>{props.value.name}</h4>
+            <p>{props.value.eventDate}</p>
+            <button>Annuler</button>
         </div>
     )
 }

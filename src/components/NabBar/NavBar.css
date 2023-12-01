@@ -49,12 +49,16 @@ header nav a:hover {
     box-shadow: 0 5px 2px -2px #F6D48A;
 }
 
-#login-button {
+.navLink-events:active {
+    box-shadow: 0 5px 2px -2px #F6D48A;
+}
+
+.login-button {
     background-color: #edcad3;
     border-radius: 0.5rem;
 }
 
-#login-button:hover {
+.login-button:hover {
     box-shadow: 0 0 10px #F6D48A;
 }
 

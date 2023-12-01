@@ -5,6 +5,8 @@ import './Login.css';
 import { UserContext } from "../../context/UserContext";
 import { NewUserContext } from "../../context/NewUserContext";
 import { getToken } from '../../api/apiCalls';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 
 export default function Login(){
@@ -12,29 +14,45 @@ export default function Login(){
     
     const navigate = useNavigate();
     // const userRef = useRef(); // set focus on that 1st input when componentloads
-    // const errRef = useRef(); // set focus on errors if it accurs
+    const errRef = useRef(); // set focus on errors if it accurs
 
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
-    // const [errMsg, setErrMsg] = useState(''); 
+    const [errMsg, setErrMsg] = useState(''); 
+
+    useEffect(()=> {
+        setErrMsg('');
+    }, [email, password])
 
 
 
-    async function handleSubmitLogin(e){
+    const handleSubmitLogin = async (e) => {
         e.preventDefault();
+        console.log(email, password);
 
-        const response = await getToken({email, password});
-        console.log(response);
-        setUser(response.user);
-        setEmail('');
-        setPassword('');
-        navigate("/dashboard");
+        try {
+            const response = await axios.post("http://localhost:8081/api/auth/login",
+                JSON.stringify({email, password}),
+                {
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+            console.log(JSON.stringify(response?.data));
+            setUser(response.data)
+            console.log("USER = "+JSON.stringify(user))
+            setEmail('');
+            setPassword('');
+            navigate("/dashboard");
+        } catch (err) {
+            console.log(err.message)
+        }
+
         
     }
 
     return(
         <section className="login-main">
-            {/* <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> */}
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <div className="login-login">
                 <h2>J'ai déjà un compte</h2>
                 <form onSubmit={handleSubmitLogin}>

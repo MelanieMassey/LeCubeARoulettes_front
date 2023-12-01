@@ -8,15 +8,15 @@ import { NewUserContext } from './context/NewUserContext';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import EventUser from './components/EventUser/EventUser';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import Events from './components/Events/Events';
 
 
 function App() {
 
   const client = new QueryClient(); // possibilité de passer une config ici
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [newUser, setNewUser] = useState();
 
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -38,18 +38,18 @@ function App() {
     <>
       
       <UserContext.Provider value={value}>
-      <NewUserContext.Provider value={value2}>
+      {/* <NewUserContext.Provider value={value2}> */}
         <QueryClientProvider client={client}>
           <NavBar/>
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
-            <Route path='/events' element={<EventUser/>}/>
+            <Route path='/events' element={<Events/>}/>
           </Routes>
           <Footer/>
         </QueryClientProvider>
-      </NewUserContext.Provider>
+      {/* </NewUserContext.Provider> */}
       </UserContext.Provider>
       
     </>
