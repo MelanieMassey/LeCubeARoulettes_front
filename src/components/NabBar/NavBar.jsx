@@ -35,7 +35,7 @@ export default function NavBar(){
           
           <nav>
               <Link to={"/"}>Accueil</Link>
-              <Link to={"/ateliers"}>Les ateliers</Link>
+              <Link to={"/events"}>Les ateliers</Link>
               <a href="">Contact</a>
               <Link to={"/login"} id="login-button">Connexion</Link>
           </nav>

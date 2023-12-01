@@ -48,4 +48,14 @@ export function getUserEvents(id){
     };
     return fetch(`${apiURL}/dashboard/user/${id}/events`, requestOptions)
             .then(response => response.json())
+
+
+    // return axios.get(`${apiURL}/dashboard/user/${id}/events`, {
+    //     // Data : pas encore de données
+    // },{
+    //     headers: { "Content-Type": "application/json" }
+    // })
+    // .then(response=>{
+    //     return response.data
+    // })
 }

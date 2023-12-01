@@ -4,26 +4,38 @@ import { UserContext } from "../../context/UserContext";
 import "./Dashboard.css"
 import { getUserEvents } from "../../api/apiCalls";
 import EventUser from '../EventUser/EventUser.jsx';
+import axios from "axios";
 
 
 export default function Dashboard() {
 
     const { user } = useContext(UserContext);
-    const [userEvents, setUserEvents] = useState();
+    const [userEvents, setUserEvents] = useState('');
+    const apiURL = "http://localhost:8081/api"
 
     console.log("*** USER *** "+JSON.stringify(user));
     let userId = user.id;
-    console.log("user id = "+userId);
+    console.log("user id = "+userId);    
 
     useEffect(()=> {
-        initData(userId);
-        console.log("*** user events *** "+JSON.stringify(userEvents))
+        initData();
+        console.log(userEvents);
     },[])
 
-    async function initData(userId){
-        let events = await getUserEvents(userId);
-        setUserEvents(events);
+    const initData= async () => {
+        await axios.get(`${apiURL}/dashboard/user/${userId}/events`, {
+            // Data : pas encore de données
+            },{
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response=>{
+                console.log(response.data)
+                setUserEvents(response.data);
         
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
     }
 
     return(
@@ -34,10 +46,10 @@ export default function Dashboard() {
                 <div className="dashboard-user-events">
                     <h3>Vos réservations d'ateliers</h3>
                     <div className="dashboard-user-events-content">
-                        {userEvents.map(event => {
+                        {userEvents > 0 ? userEvents.map(event => {
                             console.log(event.name)
                             return <EventUser value={event}/>
-                        })}
+                        }) :  <p>No event</p>}
                     </div>
                 </div>
             </div>
