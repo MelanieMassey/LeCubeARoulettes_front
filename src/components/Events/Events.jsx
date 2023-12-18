@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Event from "../Event/Event";
 import './Events.css';
+import { localApiURL } from '../../api/apiCalls.js';
 
 export default function Events() {
 
@@ -14,7 +15,7 @@ export default function Events() {
 
     const getAllEvents = async () => {
         try {
-            const response = await axios.get("http://34.163.89.215:8081/api/events")
+            const response = await axios.get(localApiURL+"events")
             
             console.log(JSON.stringify(response?.data));
             setAllEvents(response.data)

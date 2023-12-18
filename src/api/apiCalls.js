@@ -2,9 +2,23 @@ import axios from "axios";
 
 
 
-const apiURL = "http://localhost:8081/api"
+export const localApiURL = "http://localhost:8081/api/";
+const externalApiURL = "http://34.163.89.215:8081/api/";
+let isApiLocal = true;
+const apiURL = "";
+
+function setApiUrl(){
+    if(isApiLocal) {
+        apiURL = localApiURL;
+    } else {
+        apiURL = externalApiURL
+    }
+}
+
+
 
 export function getToken(loginDetails) {
+    setApiUrl();
 
     const requestOptions = {
         method : "POST",
@@ -41,6 +55,8 @@ export function getToken(loginDetails) {
 // }
 
 export function getUserEvents(id){
+    setApiUrl();
+
     const requestOptions = {
         method : "GET",
         headers: { "Content-Type": "application/json" }

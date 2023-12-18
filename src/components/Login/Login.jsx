@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import './Login.css';
 import { UserContext } from "../../context/UserContext";
 import { NewUserContext } from "../../context/NewUserContext";
-import { getToken } from '../../api/apiCalls';
+import { getToken, localApiURL } from '../../api/apiCalls';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -42,7 +42,7 @@ export default function Login(){
 
         if(email && password){
             try {
-                const response = await axios.post("http://34.163.89.215:8081/api/auth/login",
+                const response = await axios.post(localApiURL+"auth/login",
                     JSON.stringify({email, password}),
                     {
                         headers: { 'Content-Type': 'application/json' }
